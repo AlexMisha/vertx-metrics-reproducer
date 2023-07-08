@@ -8,7 +8,6 @@ import io.vertx.micrometer.impl.meters.TagsCache;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static java.lang.Thread.currentThread;
 import static java.util.concurrent.ThreadLocalRandom.current;
 
 record TagsCacheReader(Vertx vertx, Queue<String> errors) implements Runnable {
@@ -20,10 +19,6 @@ record TagsCacheReader(Vertx vertx, Queue<String> errors) implements Runnable {
 
     while (true) {
       if (done.get()) {
-        return;
-      }
-
-      if (currentThread().isInterrupted()) {
         return;
       }
 
